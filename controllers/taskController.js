@@ -13,7 +13,25 @@ function getAllTasks(req, res) {
     res.json(tasks);
 }
 
+function searchById(req, res) {
+    const id = Number(req.params.id);
+    // gets id from the url(pathvariable) and convert to number
+    const task = taskService.searchById(id);
+
+    if (task === undefined) {
+        // === is strict equality, checks value and type, like java's ==
+        res.send("Task not found")
+    }
+
+    else {
+        res.json(task);
+    }
+    // returns the searched task as JSON
+}
+
+
 module.exports = {
     createTask,
-    getAllTasks
+    getAllTasks,
+    searchById
 };
